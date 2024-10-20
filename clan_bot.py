@@ -55,6 +55,14 @@ async def post_clan_data():
         clan_total_points = battle['Points']
         point_contributions = battle['PointContributions']
 
+        # Log the total number of members fetched
+        total_members = len(point_contributions)
+        print(f"Total members in pointContributions: {total_members}")
+
+        # Check if the number of members is as expected (e.g., 75)
+        if total_members != 75:
+            print(f"Warning: Expected 75 members, but found {total_members}")
+
         # List to store member data with point changes
         members = []
 
@@ -89,11 +97,11 @@ async def post_clan_data():
                 print(f"Error fetching info for user ID: {user_id}")
 
         # Sort members by point changes (highest to lowest) and take the top 10
-        members = sorted(members, key=lambda x: x['point_diff'], reverse=True)[:10]
+        members = sorted(members, key=lambda x: x['point_diff'], reverse=True)[:20]
 
         # Create an embed message
         embed = discord.Embed(
-            title=f"Top 10 Point Changes - {clan_data['data']['Name']} Clan",
+            title=f"Top 20 Point Changes - {clan_data['data']['Name']} Clan",
             description=f"🥇 **#{clan_place}** place\n⭐ **{clan_total_points:,}** Total Points",
             color=0x00ff00  # Green color for the embed
         )
@@ -107,6 +115,9 @@ async def post_clan_data():
                 inline=False
             )
 
+        # Add the number of members fetched to the embed
+        embed.set_footer(text=f"Fetched {total_members} players")
+
         # Send the embed message to the specified Discord channel
         channel = client.get_channel(CHANNEL_ID)
         if channel:
@@ -116,12 +127,12 @@ async def post_clan_data():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# Run the point update every 60 seconds using asyncio
+# Run the point update every 600 seconds (10 minutes) using asyncio
 async def scheduled_task():
     while True:
         print("Running scheduled task...")
         await post_clan_data()
-        await asyncio.sleep(600)  # Run every 60 seconds (1 minute)
+        await asyncio.sleep(600)  # Run every 10 minutes
 
 # When the bot is ready
 @client.event
