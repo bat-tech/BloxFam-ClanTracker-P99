@@ -7,10 +7,10 @@ import os
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 # The Discord channel ID where updates will be posted (replace this with your channel's ID)
-CHANNEL_ID = 1255555435906465803
+CHANNEL_ID = 1297899235110424659
 
 # Clan API URL
-CLAN_API_URL = "https://ps99.biggamesapi.io/api/clan/FMLY"
+CLAN_API_URL = "https://ps99.biggamesapi.io/api/clan/BLXF"
 
 # Initialize the Discord bot client
 intents = discord.Intents.default()
