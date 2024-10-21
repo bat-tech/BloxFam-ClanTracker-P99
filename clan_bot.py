@@ -4,7 +4,7 @@ import asyncio
 import requests
 import os
 
-TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+TOKEN = os.getenv('DISCORD_BOT_TOKEN_BLXF')
 
 # The Discord channel ID where updates will be posted (replace this with your channel's ID)
 CHANNEL_ID = 1297899235110424659
